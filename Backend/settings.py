@@ -14,6 +14,39 @@ import os
 from pathlib import Path
 from decouple import config
 
+
+
+
+REACT_BUILD_PATH = "/home/adeeb0011/build/dist"
+
+STATICFILES_DIRS = [
+    REACT_BUILD_PATH,
+]
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REACT_BUILD_PATH = os.path.join(BASE_DIR, 'build')
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [REACT_BUILD_PATH],  # تأكد أن المسار هنا صحيح
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+STATICFILES_DIRS = [
+    os.path.join(REACT_BUILD_PATH, 'static'),
+]
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,22 +61,22 @@ SECRET_KEY = 'django-insecure-+ge*r&yuu@kj)wcgy**u#7(ps!m8*ctf1)c$_5-1@_gj9btx#2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['adeeb0011.pythonanywhere.com']
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 AUTHENTICATION_BACKENDS = [
-    'accounts.backends.EmailBackend', 
-    'django.contrib.auth.backends.ModelBackend',  
+    'accounts.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'rest_framework.authentication.TokenAuthentication',
 #     ),
 #     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated', 
+#         'rest_framework.permissions.IsAuthenticated',
 #     ),
 # }
 
@@ -56,8 +89,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',  
-    'rest_framework.authtoken',  
+    'rest_framework',
+    'rest_framework.authtoken',
     'accounts',  'corsheaders',
 ]
 
@@ -100,7 +133,7 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'auth_db',
+        'NAME': 'adeeb0011$api',
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST', default='localhost'),
